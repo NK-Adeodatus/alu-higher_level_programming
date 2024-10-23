@@ -1,14 +1,9 @@
 #!/usr/bin/python3
 if __name__ == "__main__":
+    import importlib
 
-    import hidden_4
+    # Load the module
+    variable_load_5 = importlib.import_module('variable_load_5')
 
-    # Use list comprehension to filter names and sort them
-    names = sorted([
-        name for name in dir(hidden_4)
-        if not name.startswith('__')
-    ])
-
-    # Print each name on a new line
-    for name in names:
-        print(name)
+    # Print the value of the variable 'a'
+    print(variable_load_5.a)

@@ -6,7 +6,6 @@ size property and area calculation."""
 class Square:
     """Class that defines a square with a size property."""
 
-
     def __init__(self, size=0):
         """Initialize the square with an optional size."""
         self.size = size  # Use the setter to initialize size
@@ -28,5 +27,3 @@ class Square:
     def area(self):
         """Calculate and return the area of the square."""
         return self.__size ** 2
-
-

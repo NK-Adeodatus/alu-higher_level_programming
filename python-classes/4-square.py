@@ -1,8 +1,11 @@
 #!/usr/bin/python3
-"""Module 4-square - Defines a square with size property and area calculation."""
+"""Module 4-square - Defines a square with
+size property and area calculation."""
+
 
 class Square:
     """Class that defines a square with a size property."""
+
 
     def __init__(self, size=0):
         """Initialize the square with an optional size."""
@@ -25,4 +28,5 @@ class Square:
     def area(self):
         """Calculate and return the area of the square."""
         return self.__size ** 2
+
 

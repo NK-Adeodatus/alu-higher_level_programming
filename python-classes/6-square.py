@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Module 6-square - Defines a square with size and position properties."""
 
+
 class Square:
     """Class that defines a square with size and position properties."""
 
@@ -53,4 +54,3 @@ class Square:
 
         for _ in range(self.__size):
             print(" " * self.__position[0] + '#' * self.__size)
-

@@ -4,6 +4,6 @@
 
 class Square:
     """Empty class that defines a square"""
-    def _init_(self,size)
+    def _init_(self,size):
         """Instantiate with size duriing object initialization"""
         self._size = size

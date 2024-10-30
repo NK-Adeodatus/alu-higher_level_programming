@@ -7,7 +7,8 @@ class Rectangle:
     """Represents a rectangle."""
 
     def __init__(self, width=0, height=0):
-        """Initialize the rectangle with width and height."""
+        """Initialize the rectangle with width 
+        and height."""
         self.width = width
         self.height = height
 
@@ -50,11 +51,13 @@ class Rectangle:
         return 2 * (self.__width + self.__height)
 
     def __str__(self):
-        """Returning a string representation of the rectangle with # character."""
+        """Returning a string representation of the
+        rectangle with # character."""
         if self.__width == 0 or self.__height == 0:
             return ""
         return "\n".join("#" * self.__width for _ in range(self.__height))
 
     def __repr__(self):
-        """Returning a strng representation that can recreate a new instance."""
+        """Returning a strng representation that
+        can recreate a new instance."""
         return f"Rectangle({self.__width}, {self.__height})"

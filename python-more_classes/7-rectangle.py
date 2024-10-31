@@ -1,4 +1,4 @@
-#!/usr/bin/pythob3
+#!/usr/bin/python3
 """Class rectangle"""
 
 

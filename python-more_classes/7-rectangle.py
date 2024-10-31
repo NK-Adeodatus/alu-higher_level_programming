@@ -1,11 +1,12 @@
-#!/usr/bin/python3
-"""Rectangle class"""
+#!/usr/bin/pythob3
+"""Class rectangle"""
 
 
 class Rectangle:
     """A class to define a rectangle."""
-
+    
     number_of_instances = 0
+    print_symbol = "#"
 
     def __init__(self, width=0, height=0):
         """Initialize a new rectangle."""
@@ -46,20 +47,21 @@ class Rectangle:
         return self.width * self.height
 
     def perimeter(self):
-        """Return the perimeter of the rectangle."""
+        """Returning the perimeter of th
+        rectangle."""
         if self.width == 0 or self.height == 0:
             return 0
         return 2 * (self.width + self.height)
 
     def __str__(self):
-        """Return a string representation of
-        the rectangle."""
+        """Returning a string representation
+        of the rectangle."""
         if self.width == 0 or self.height == 0:
             return ""
-        return "\n".join(["#" * self.width for _ in range(self.height)])
+        return "\n".join([str(self.print_symbol) * self.width for _ in range(self.height)])
 
     def __repr__(self):
-        """Return a string representation for
+        """Retrning a string representation for
         recreating the rectangle."""
         return f"Rectangle({self.width}, {self.height})"
 

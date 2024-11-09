@@ -7,8 +7,7 @@ from BaseGeometry.
 
 class Rectangle(BaseGeometry):
     """
-    A class to represent rectangle
-    using baseGeometry.
+    A class to represent rectangle using baseGeometry.
     """
 
     def __init__(self, width, height):

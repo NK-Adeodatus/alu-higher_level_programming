@@ -23,7 +23,7 @@ class Student:
         """
         if attrs is None:
             return vars(self)
-        
+
         attrs_dict = {
             key: value
             for key, value in vars(self).items()

@@ -23,6 +23,10 @@ class Student:
         """
         if attrs is None:
             return vars(self)
-        else:
-            # Filter the attributes based on the list in attrs
-            return {key: value for key, value in vars(self).items() if key in attrs}
+        
+        attrs_dict = {
+            key: value
+            for key, value in vars(self).items()
+            if key in attrs
+        }
+        return attrs_dict

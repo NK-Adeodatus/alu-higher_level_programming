@@ -5,6 +5,7 @@ and displays the body of the response (decoded in utf-8).
 Manages urllib.error.HTTPError exceptions to print error codes.
 """
 
+
 import urllib.request
 import urllib.error
 import sys

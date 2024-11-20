@@ -1,0 +1,57 @@
+#!/usr/bin/python3
+"""
+Unit test for the 5 text indentetion file
+"""
+
+
+import unittest
+from 5-text_indentation import text_indentation
+from io import StringIO
+import sys
+
+
+class TestTextIndentation(unittest.TestCase):
+    def setUp(self):
+        """Set up a method to capture stdout."""
+        self.output = StringIO()
+        sys.stdout = self.output
+
+    def tearDown(self):
+        """Tear down the output capturing."""
+        sys.stdout = sys.__stdout__
+
+    def assertOutput(self, expected_output):
+        """Assert that the captured output matches expected output."""
+        self.assertEqual(self.output.getvalue(), expected_output)
+
+    def test_basic_input(self):
+        text_indentation("Hello. How are you? I am fine:")
+        self.assertOutput("Hello.\n\nHow are you?\n\nI am fine:\n")
+
+    def test_no_punctuation(self):
+        text_indentation("No punctuation here")
+        self.assertOutput("No punctuation here")
+
+    def test_empty_string(self):
+        text_indentation("")
+        self.assertOutput("")
+
+    def test_space_after_punctuation(self):
+        text_indentation("Hello.  How are you?")
+        self.assertOutput("Hello.\n\nHow are you?\n")
+
+    def test_only_special_characters(self):
+        text_indentation(".?")
+        self.assertOutput(".\n\n?\n\n")
+
+    def test_invalid_input(self):
+        with self.assertRaises(TypeError):
+            text_indentation(123)
+
+    def test_leading_trailing_spaces(self):
+        text_indentation("Hello:     World!")
+        self.assertOutput("Hello:\n\nWorld!\n")
+
+
+if __name__ == "__main__":
+    unittest.main()

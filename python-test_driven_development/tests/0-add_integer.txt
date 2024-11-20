@@ -70,8 +70,7 @@ class TestAddInteger(unittest.TestCase):
 	"""Test edge cases"""
 	self.assertEqual(add_integer(0, 0), 0)
 	self.assertEqual(add_integer(-100, -200), -300)
-	self.assertEqual(add_integer(1_000_000, 2_000_000), 3_000_000)
-
+        self.assertEqual(add_integer(1_000_000, 2_000_000), 3_000_000)
 
 if __name__ == "__main__":
     unittest.main()

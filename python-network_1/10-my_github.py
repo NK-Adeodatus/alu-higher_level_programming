@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-A script that uses GitHub API to display a user's id using Basic Authentication.
+A script that uses GitHub API to display an id using Basic Authentication.
 The username and personal access token are passed as command-line arguments.
 """
 

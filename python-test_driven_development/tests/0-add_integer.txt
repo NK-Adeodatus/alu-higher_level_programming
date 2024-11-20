@@ -1,0 +1,57 @@
+#!/usr/bin/python3
+"""
+Unittest for add_integer function
+"""
+
+
+import unittest
+from 0-add_integer import add_integer
+
+
+class TestAddInteger(unittest.TestCase):
+    """Test cases for add_integer function"""
+
+    def test_integers(self):
+	"""Test addition of two integers"""
+	self.assertEqual(add_integer(1, 2), 3)
+	self.assertEqual(add_integer(100, -2), 98)
+	self.assertEqual(add_integer(0, 0), 0)
+
+    def test_floats(self):
+	"""Test addition of floats (should be casted to integers)"""
+	self.assertEqual(add_integer(1.5, 2.3), 3)
+	self.assertEqual(add_integer(100.7, -2.1), 98)
+	self.assertEqual(add_integer(-1.9, -2.5), -4)
+
+    def test_mix_int_float(self):
+	"""Test addition of mixed integers and floats"""
+	self.assertEqual(add_integer(1, 2.9), 3)
+	self.assertEqual(add_integer(1.1, 2), 3)
+
+    def test_single_argument(self):
+	"""Test when only one argument is provided"""
+	self.assertEqual(add_integer(2), 100)
+	self.assertEqual(add_integer(0), 98)
+
+    def test_invalid_types(self):
+	"""Test invalid types (should raise TypeError)"""
+	with self.assertRaises(TypeError):
+	    add_integer("a", 2)
+	with self.assertRaises(TypeError):
+	    add_integer(2, "b")
+	with self.assertRaises(TypeError):
+	    add_integer(None)
+	with self.assertRaises(TypeError):
+	    add_integer([1, 2], 3)
+	with self.assertRaises(TypeError):
+	    add_integer(1, (2,))
+
+    def test_edge_cases(self):
+	"""Test edge cases"""
+	self.assertEqual(add_integer(0, 0), 0)
+	self.assertEqual(add_integer(-100, -200), -300)
+	self.assertEqual(add_integer(1_000_000, 2_000_000), 3_000_000)
+
+
+if __name__ == "__main__":
+    unittest.main()

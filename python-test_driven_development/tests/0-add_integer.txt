@@ -7,71 +7,78 @@ Unittest for add_integer function
 import unittest
 from 0-add_integer import add_integer
 
-
 class TestAddInteger(unittest.TestCase):
     """Test cases for add_integer function"""
 
     def test_integers(self):
-	"""Test addition of two integers"""
-	self.assertEqual(add_integer(1, 2), 3)
-	self.assertEqual(add_integer(100, -2), 98)
-	self.assertEqual(add_integer(0, 0), 0)
+        """Test addition of two integers"""
+        self.assertEqual(add_integer(1, 2), 3)
+        self.assertEqual(add_integer(100, -2), 98)
+        self.assertEqual(add_integer(0, 0), 0)
 
     def test_floats(self):
-	"""Test addition of floats (should be casted to integers)"""
-	self.assertEqual(add_integer(1.5, 2.3), 3)
-	self.assertEqual(add_integer(100.7, -2.1), 98)
-	self.assertEqual(add_integer(-1.9, -2.5), -4)
+        """Test addition of floats (should be casted to integers)"""
+        self.assertEqual(add_integer(1.5, 2.3), 3)
+        self.assertEqual(add_integer(100.7, -2.1), 98)
+        self.assertEqual(add_integer(-1.9, -2.5), -4)
 
     def test_mix_int_float(self):
-	"""Test addition of mixed integers and floats"""
-	self.assertEqual(add_integer(1, 2.9), 3)
-	self.assertEqual(add_integer(1.1, 2), 3)
+        """Test addition of mixed integers and floats"""
+        self.assertEqual(add_integer(1, 2.9), 3)
+        self.assertEqual(add_integer(1.1, 2), 3)
 
     def test_nan_and_infinity(self):
         """Test NaN and infinity (should raise TypeError)"""
-        with self.assertRaises(TypeError):
+        with self.assertRaises(TypeError) as e:
             add_integer(float('nan'), 2)
-        with self.assertRaises(TypeError):
+        self.assertEqual(str(e.exception), "NaN cannot be converted to an integer")
+
+        with self.assertRaises(TypeError) as e:
             add_integer(float('inf'), 2)
-            with self.assertRaises(TypeError):
-                add_integer(2, float('-inf'))
+        self.assertEqual(str(e.exception), "inf cannot be converted to an integer")
+
+        with self.assertRaises(TypeError) as e:
+            add_integer(2, float('-inf'))
+        self.assertEqual(str(e.exception), "-inf cannot be converted to an integer")
 
     def test_single_argument(self):
-	"""Test when only one argument is provided"""
-	self.assertEqual(add_integer(2), 100)
-	self.assertEqual(add_integer(0), 98)
+        """Test when only one argument is provided"""
+        self.assertEqual(add_integer(2), 100)
+        self.assertEqual(add_integer(0), 98)
 
     def test_missing_arguments(self):
         """Test cases with missing arguments"""
-        with self.assertRaises(TypeError):
+        with self.assertRaises(TypeError) as e:
             add_integer()
+        self.assertEqual(str(e.exception), "add_integer() missing required positional argument")
 
     def test_invalid_types(self):
-	"""Test invalid types (should raise TypeError)"""
-	with self.assertRaises(TypeError):
-	    add_integer("a", 2)
-	with self.assertRaises(TypeError):
-	    add_integer(2, "b")
-	with self.assertRaises(TypeError):
-	    add_integer(None)
-	with self.assertRaises(TypeError):
-	    add_integer([1, 2], 3)
-	with self.assertRaises(TypeError):
-	    add_integer(1, (2,))
-
-    def test_invalid_type_messages(self):
-        """Test invalid type messages"""
+        """Test invalid types (should raise TypeError)"""
         with self.assertRaises(TypeError) as e:
             add_integer("a", 2)
         self.assertEqual(str(e.exception), "a must be an integer")
 
-    def test_edge_cases(self):
-	"""Test edge cases"""
-	self.assertEqual(add_integer(0, 0), 0)
-	self.assertEqual(add_integer(-100, -200), -300)
-	self.assertEqual(add_integer(1_000_000, 2_000_000), 3_000_000)
+        with self.assertRaises(TypeError) as e:
+            add_integer(2, "b")
+        self.assertEqual(str(e.exception), "b must be an integer")
 
+        with self.assertRaises(TypeError) as e:
+            add_integer(None)
+        self.assertEqual(str(e.exception), "NoneType cannot be converted to an integer")
+
+        with self.assertRaises(TypeError) as e:
+            add_integer([1, 2], 3)
+        self.assertEqual(str(e.exception), "list cannot be converted to an integer")
+
+        with self.assertRaises(TypeError) as e:
+            add_integer(1, (2,))
+        self.assertEqual(str(e.exception), "tuple cannot be converted to an integer")
+
+    def test_edge_cases(self):
+        """Test edge cases"""
+        self.assertEqual(add_integer(0, 0), 0)
+        self.assertEqual(add_integer(-100, -200), -300)
+        self.assertEqual(add_integer(1_000_000, 2_000_000), 3_000_000)
 
 if __name__ == "__main__":
     unittest.main()

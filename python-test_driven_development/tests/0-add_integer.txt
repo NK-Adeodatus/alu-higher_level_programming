@@ -1,91 +1,124 @@
-#!/usr/bin/python3
-"""
-Unittest for add_integer function
-"""
+# 0-add_integer.txt
 
+===========================
+How to Use 0-add_integer.py
+===========================
 
-import unittest
-from 0-add_integer import add_integer
+This module defines an integer addition function ``add_integer(a, b=98)``.
 
-class TestAddInteger(unittest.TestCase):
-    """Test cases for add_integer function"""
+Usage
+=====
 
-    def test_integers(self):
-        """Test addition of two integers"""
-        self.assertEqual(add_integer(1, 2), 3)
-        self.assertEqual(add_integer(100, -2), 98)
-        self.assertEqual(add_integer(0, 0), 0)
+``add_integer(...)``` returns the addition of its two arguments. For numbers,
+that value is equivalent to using the ``+`` operator.
 
-    def test_floats(self):
-        """Test addition of floats (should be casted to integers)"""
-        self.assertEqual(add_integer(1.5, 2.3), 3)
-        self.assertEqual(add_integer(100.7, -2.1), 98)
-        self.assertEqual(add_integer(-1.9, -2.5), -4)
+::
 
-    def test_mix_int_float(self):
-        """Test addition of mixed integers and floats"""
-        self.assertEqual(add_integer(1, 2.9), 3)
-        self.assertEqual(add_integer(1.1, 2), 3)
+    >>> add_integer = __import__('0-add_integer').add_integer
+    >>> add_integer(2, 3)
+    5
 
-    def test_nan_and_infinity(self):
-        """Test NaN and infinity (should raise TypeError)"""
-        with self.assertRaises(TypeError) as e:
-            add_integer(float('nan'), 2)
-        self.assertEqual(str(e.exception), "NaN cannot be converted to an integer")
+::
 
-        with self.assertRaises(TypeError) as e:
-            add_integer(float('inf'), 2)
-        self.assertEqual(str(e.exception), "inf cannot be converted to an integer")
+    >>> add_integer(2, -3)
+    -1
 
-        with self.assertRaises(TypeError) as e:
-            add_integer(2, float('-inf'))
-        self.assertEqual(str(e.exception), "-inf cannot be converted to an integer")
+    The function also works with floating-point values.
 
-    def test_single_argument(self):
-        """Test when only one argument is provided"""
-        self.assertEqual(add_integer(2), 100)
-        self.assertEqual(add_integer(0), 98)
+::
 
-    def test_missing_arguments(self):
-        """Test cases with missing arguments"""
-        with self.assertRaises(TypeError) as e:
-            add_integer()
-        self.assertEqual(str(e.exception), "add_integer() missing required positional argument")
+    >>> add_integer(2.0, 3.0)
+    5
 
-    def test_invalid_types(self):
-        """Test invalid types (should raise TypeError)"""
-        with self.assertRaises(TypeError) as e:
-            add_integer("a", 2)
-        self.assertEqual(str(e.exception), "a must be an integer")
+Note that floats are casted to ints before addition is performed.
 
-<<<<<<< HEAD
-    def test_edge_cases(self):
-	"""Test edge cases"""
-	self.assertEqual(add_integer(0, 0), 0)
-	self.assertEqual(add_integer(-100, -200), -300)
-=======
-        with self.assertRaises(TypeError) as e:
-            add_integer(2, "b")
-        self.assertEqual(str(e.exception), "b must be an integer")
+::
+    >>> add_integer(2.9, 0.2)
+    2
 
-        with self.assertRaises(TypeError) as e:
-            add_integer(None)
-        self.assertEqual(str(e.exception), "NoneType cannot be converted to an integer")
+::
 
-        with self.assertRaises(TypeError) as e:
-            add_integer([1, 2], 3)
-        self.assertEqual(str(e.exception), "list cannot be converted to an integer")
+    >>> add_integer(-2.9, -0.2)
+    -2
 
-        with self.assertRaises(TypeError) as e:
-            add_integer(1, (2,))
-        self.assertEqual(str(e.exception), "tuple cannot be converted to an integer")
+Floating and non-floating point values can be combined.
 
-    def test_edge_cases(self):
-        """Test edge cases"""
-        self.assertEqual(add_integer(0, 0), 0)
-        self.assertEqual(add_integer(-100, -200), -300)
->>>>>>> 1eb7e1a73cefa407d1f828ddc249532721ad9e02
-        self.assertEqual(add_integer(1_000_000, 2_000_000), 3_000_000)
+::
 
-if __name__ == "__main__":
-    unittest.main()
+    >>> add_integer(2.3, -3)
+    -1
+
+The second argument is optional - by default, it is 98.
+
+::
+
+    >>> add_integer(2)
+    100
+
+Non-Numbers
+===========
+
+``add_integer()`` expects that both arguments are either integers or floats.
+If either argument is a non-integer and non-float, a TypeError is raised:
+
+::
+
+    >>> add_integer("hello", 3)
+    Traceback (most recent call last):
+    TypeError: a must be an integer
+
+::
+
+    >>> add_integer(2, "hello")
+    Traceback (most recent call last):
+    TypeError: b must be an integer
+
+::
+
+    >>> add_integer(None)
+    Traceback (most recent call last):
+    TypeError: a must be an integer
+
+::
+
+    >>> add_integer(2.3, None)
+    Traceback (most recent call last):
+    TypeError: b must be an integer
+
+If both arguments are non-integers and non-floats, a TypeError message is only
+printed for the first argument.
+
+::
+
+    >>> add_integer("hello", "there")
+    Traceback (most recent call last):
+    TypeError: a must be an integer
+
+The function will fail if infinity is provided.
+
+::
+
+    >>> add_integer(float('inf'))
+    Traceback (most recent call last):
+    OverflowError: cannot convert float infinity to integer
+                     
+
+::
+
+    >>> add_integer(2, float('inf'))
+    Traceback (most recent call last):
+    OverflowError: cannot convert float infinity to integer
+
+And again with NaN numbers.
+
+::
+
+    >>> add_integer(float('nan'))
+    Traceback (most recent call last):
+    ValueError: cannot convert float NaN to integer
+
+::
+
+    >>> add_integer(2, float('nan'))
+    Traceback (most recent call last):
+    ValueError: cannot convert float NaN to integer

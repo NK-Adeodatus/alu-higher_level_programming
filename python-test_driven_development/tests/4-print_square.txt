@@ -1,66 +1,55 @@
-#!/usr/bin/python3
-"""
-Unit test for the 4 print square file
-"""
+The ``4-print_square``
+======================
 
+Using ``print_square``
+-------------------
 
-import unittest
-from io import StringIO
-import sys
-from 4-print_square import print_square
+Import ``print_square`` from the ``4-print_square`` module:
 
-class TestPrintSquare(unittest.TestCase):
-    """Unit test cases for print_square function"""
+        >>> print_square = __import__('4-print_square').print_square
 
-    def setUp(self):
-        """Redirect stdout to capture printed output for validation"""
-        self.held_output = StringIO()
-        sys.stdout = self.held_output
+Test argument as integer >= 0:
 
-    def tearDown(self):
-        """Restore stdout after each test"""
-        sys.stdout = sys.__stdout__
+        >>> print_square(0)
 
-    def test_square_size_4(self):
-        """Test printing a square of size 4"""
-        print_square(4)
-        self.assertEqual(self.held_output.getvalue(), "####\n####\n####\n####\n")
+        >>> print_square(4)
+        ####
+        ####
+        ####
+        ####
 
-    def test_square_size_1(self):
-        """Test printing a square of size 1"""
-        print_square(1)
-        self.assertEqual(self.held_output.getvalue(), "#\n")
+        >>> print_square(5)
+        #####
+        #####
+        #####
+        #####
 
-    def test_square_size_0(self):
-        """Test printing a square of size 0 (should print nothing)"""
-        print_square(0)
-        self.assertEqual(self.held_output.getvalue(), "")
+        >>> print_square(10)
+        ##########
+        ##########
+        ##########
+        ##########
+        ##########
+        ##########
+        ##########
+        ##########
+        ##########
+        ##########
 
-    def test_negative_size(self):
-        """Test negative size raises ValueError"""
-        with self.assertRaises(ValueError) as e:
-            print_square(-1)
-        self.assertEqual(str(e.exception), "size must be >= 0")
+Test argument as integer < 0:
 
-    def test_float_size(self):
-        """Test float size raises TypeError"""
-        with self.assertRaises(TypeError) as e:
-            print_square(2.5)
-        self.assertEqual(str(e.exception), "size must be an integer")
+        >>> print_square(-4)
+        Traceback (most recent call last):
+        ValueError: size must be >= 0
 
-    def test_string_size(self):
-        """Test string size raises TypeError"""
-        with self.assertRaises(TypeError) as e:
-            print_square("3")
-        self.assertEqual(str(e.exception), "size must be an integer")
+Test argument as non integer:
 
-    def test_list_size(self):
-        """Test list size raises TypeError"""
-        with self.assertRaises(TypeError) as e:
-            print_square([3])
-        self.assertEqual(str(e.exception), "size must be an integer")
+        >>> print_square("Zero")
+        Traceback (most recent call last):
+        TypeError: size must be an integer
 
-if __name__ == "__main__":
-    unittest.main()
+Test no argument as non integer:
 
-
+        >>> print_square()
+        Traceback (most recent call last):
+        TypeError: print_square() missing 1 required positional argument: 'size'

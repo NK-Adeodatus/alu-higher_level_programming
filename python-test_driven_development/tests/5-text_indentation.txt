@@ -57,3 +57,40 @@ Test with multiple consecutive special characters:
     Why:
     <BLANKLINE>
     This is confusing...
+
+Test argument with multiple leading spaces:
+
+    >>> text_indentation("     John loves to code, Sarah is his colleague. Alex enjoys teaching too!")
+    John loves to code, Sarah is his colleague.
+    <BLANKLINE>
+    Alex enjoys teaching too!
+
+Test argument with multiple spaces at the beginning and/or end of text:
+
+    >>> text_indentation("John loves to write code. Sarah also enjoys programming.      Alex teaches coding.     ")
+    John loves to write code.
+    <BLANKLINE>
+    Sarah also enjoys programming.
+    <BLANKLINE>
+    Alex teaches coding.
+
+Test argument with multiple '?', '.', or ':' within the text:
+
+    >>> text_indentation(".?:.John is a software engineer. Sarah is a designer? Alex is a professor.: David is a student.")
+    .
+    <BLANKLINE>
+    ?
+    <BLANKLINE>
+    :
+    <BLANKLINE>
+    .
+    <BLANKLINE>
+    John is a software engineer.
+    <BLANKLINE>
+    Sarah is a designer?
+    <BLANKLINE>
+    Alex is a professor.
+    <BLANKLINE>
+    :
+    <BLANKLINE>
+    David is a student.

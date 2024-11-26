@@ -9,22 +9,20 @@ def text_indentation(text):
     """Prints a text with 2 new lines after each of
     these characters: ., ?, :
     """
-    if not isinstance(text, str):
+    if type(text) is not str:
         raise TypeError("text must be a string")
 
-    result = ""
-    special_chars = {".", "?", ":"}
-    i = 0
-
-    while i < len(text):
-        result += text[i]
-        if text[i] in special_chars:
-            result += "\n\n"
-            i += 1
-            # Skip any extra spaces after the special character
-            while i < len(text) and text[i] == " ":
-                i += 1
-            continue
-        i += 1
-
-    print(result, end="")
+    no_space = True
+    size = 0
+    text = text.strip()
+    new_text = ""
+    for x in text:
+        if x == " " and no_space:
+            pass
+        elif x == "." or x == "?" or x == ":":
+            new_text += x + "\n\n"
+            no_space = True
+        else:
+            new_text += x
+            no_space = False
+    print(new_text, end='')

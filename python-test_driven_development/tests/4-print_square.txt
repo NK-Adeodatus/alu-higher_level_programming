@@ -23,6 +23,7 @@ Test argument as integer >= 0:
         #####
         #####
         #####
+	#####
 
         >>> print_square(10)
         ##########

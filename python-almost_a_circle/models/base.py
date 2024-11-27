@@ -98,29 +98,24 @@ class Base:
 
     @classmethod
     def load_from_file_csv(cls):
-        """Deserializes a list of objects from a CSV file."""
-        filename = f"{cls.__name__}.csv"
-        if not os.path.exists(filename):
-            return []
-        with open(filename, mode="r", newline="") as csvfile:
-            reader = csv.reader(csvfile)
-            list_objs = []
-            for row in reader:
+        """Return a list of classes instantiated from a CSV file.
+
+        Reads from `<cls.__name__>.csv`.
+
+        Returns:
+            If the file does not exist - an empty list.
+            Otherwise - a list of instantiated classes.
+        """
+        filename = cls.__name__ + ".csv"
+        try:
+            with open(filename, "r", newline="") as csvfile:
                 if cls.__name__ == "Rectangle":
-                    dictionary = {
-                        "id": int(row[0]),
-                        "width": int(row[1]),
-                        "height": int(row[2]),
-                        "x": int(row[3]),
-                        "y": int(row[4]),
-                    }
-                elif cls.__name__ == "Square":
-                    dictionary = {
-                        "id": int(row[0]),
-                        "size": int(row[1]),
-                        "x": int(row[2]),
-                        "y": int(row[3]),
-                    }
-                obj = cls.create(**dictionary)
-                list_objs.append(obj)
-            return list_objs
+                    fieldnames = ["id", "width", "height", "x", "y"]
+                else:
+                    fieldnames = ["id", "size", "x", "y"]
+                list_dicts = csv.DictReader(csvfile, fieldnames=fieldnames)
+                list_dicts = [dict([k, int(v)] for k, v in d.items())
+                            for d in list_dicts]
+                return [cls.create(**d) for d in list_dicts]
+        except IOError:
+            return []

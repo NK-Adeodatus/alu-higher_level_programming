@@ -80,5 +80,5 @@ class Base:
                     instances.append(cls.create(**dictionary))
                     return instances
 
-        except FileNotFoundError:
+        except IOError:
             return []

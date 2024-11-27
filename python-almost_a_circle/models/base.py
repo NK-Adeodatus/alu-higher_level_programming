@@ -92,7 +92,10 @@ class Base:
             if list_objs is not None:
                 for obj in list_objs:
                     if cls.__name__ == "Rectangle":
-                        writer.writerow([obj.id, obj.width, obj.height, obj.x, obj.y])
+                        writer.writerow([
+                            obj.id, obj.width, obj.height,
+                            obj.x, obj.y
+                            ])
                     elif cls.__name__ == "Square":
                         writer.writerow([obj.id, obj.size, obj.x, obj.y])
 
@@ -114,8 +117,10 @@ class Base:
                 else:
                     fieldnames = ["id", "size", "x", "y"]
                 list_dicts = csv.DictReader(csvfile, fieldnames=fieldnames)
-                list_dicts = [dict([k, int(v)] for k, v in d.items())
-                            for d in list_dicts]
+                list_dicts = [
+                        dict([k, int(v)] for k, v in d.items())
+                        for d in list_dicts
+                        ]
                 return [cls.create(**d) for d in list_dicts]
         except IOError:
             return []

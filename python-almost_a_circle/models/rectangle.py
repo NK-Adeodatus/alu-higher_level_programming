@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines a rectangle class."""
+"""Defines a rectangle class that inherits from Base."""
 from models.base import Base
 
 
@@ -9,7 +9,7 @@ class Rectangle(Base):
     def __init__(self, width, height, x=0, y=0, id=None):
         """Initialize a new Rectangle.
 
-        Args:
+        Argumets:
             width (int): The width of the new Rectangle.
             height (int): The height of the new Rectangle.
             x (int): The x coordinate of the new Rectangle.
@@ -98,7 +98,7 @@ class Rectangle(Base):
     def update(self, *args, **kwargs):
         """Update the Rectangle.
 
-        Args:
+        Arguments:
             *args (ints): New attribute values.
                 - 1st argument represents id attribute
                 - 2nd argument represents width attribute
@@ -142,7 +142,7 @@ class Rectangle(Base):
                     self.y = v
 
     def to_dictionary(self):
-        """Return the dictionary representation of a Rectangle."""
+        """Return the dictionary representation"""
         return {
             "id": self.id,
             "width": self.width,
@@ -153,6 +153,4 @@ class Rectangle(Base):
 
     def __str__(self):
         """Return the print() and str() representation of the Rectangle."""
-        return "[Rectangle] ({}) {}/{} - {}/{}".format(self.id,
-                                                       self.x, self.y,
-                                                       self.width, self.height)
+        return "[Rectangle] ({}) {}/{} - {}/{}".format(self.id,self.x, self.y,self.width, self.height)

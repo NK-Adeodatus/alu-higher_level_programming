@@ -47,3 +47,34 @@ class Base:
 
         with open(filename, "w") as file:
             file.write(cls.to_json_string(list_dicts))
+
+    @classmethod
+    def from_json_string(json_string):
+        """Return the list of the JSON string representation json_string."""
+        if json_string is None or json_string == "":
+            return []
+        return json.loads(json_string)
+
+    @classmethod
+    def create(cls, **dictionary):
+        """Return an instance with all attributes already set."""
+        if cls.__name__ == "Rectangle":
+            from models.rectangle import Rectangle
+            new_instance = Rectangle(1, 1)
+        elif cls.__name__ == "Square":
+            from models.square import Square
+            new_instance = Square(1)
+        new_instance.update(**dictionary)
+        return new_instance
+
+    @classmethod
+    def load_from_file(cls):
+        """Return a list of instances from a file."""
+        filename = f"{cls.__name__}.json"
+        try:
+            with open(filename, "r") as file:
+                json_string = file.read()
+                list_dictionaries = cls.from_json_string(json_string)
+                return [cls.create(**dictionary) for dictionary in list_dictionaries]
+        except FileNotFoundError:
+            return []

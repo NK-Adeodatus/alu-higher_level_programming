@@ -1,61 +1,118 @@
-#!/usr/bin/python3
-"""Unit tests for the Base class."""
+#!/usr/bin/env python3
+"""
+Unit tests for the Base class in models.base.
+
+This module contains tests for various methods in the Base class,
+such as JSON serialization/deserialization, file operations, instance
+creation, and CSV handling.
+"""
+
+
 import unittest
+import os
 from models.base import Base
+from models.rectangle import Rectangle
+from models.square import Square
 
 
 class TestBase(unittest.TestCase):
-    """Test cases for the Base class."""
+    """Unit tests for the Base class."""
 
     def setUp(self):
-        """Reset the __nb_objects counter before each test."""
+        """Set up test environment by resetting Base object count."""
         Base._Base__nb_objects = 0
 
-    def test_no_id(self):
-        """Test automatic ID assignment when no id is provided."""
-        b1 = Base()
-        b2 = Base()
-        b3 = Base()
-        self.assertEqual(b1.id, 1)
-        self.assertEqual(b2.id, 2)
-        self.assertEqual(b3.id, 3)
+    def tearDown(self):
+        """Clean up any files created during the tests."""
+        if os.path.exists("Rectangle.json"):
+            os.remove("Rectangle.json")
+        if os.path.exists("Square.json"):
+            os.remove("Square.json")
+        if os.path.exists("Rectangle.csv"):
+            os.remove("Rectangle.csv")
+        if os.path.exists("Square.csv"):
+            os.remove("Square.csv")
 
-    def test_provided_id(self):
-        """Test manual ID assignment."""
-        b1 = Base(42)
-        self.assertEqual(b1.id, 42)
+    def test_to_json_string(self):
+        """Test the to_json_string method."""
+        dict_list = [{"id": 1, "width": 10, "height": 7}]
+        json_string = Base.to_json_string(dict_list)
+        self.assertEqual(json_string, '[{"id": 1, "width": 10, "height": 7}]')
 
-    def test_mixed_ids(self):
-        """Test a mix of manual and automatic ID assignments."""
-        b1 = Base()
-        b2 = Base(99)
-        b3 = Base()
-        self.assertEqual(b1.id, 1)
-        self.assertEqual(b2.id, 99)
-        self.assertEqual(b3.id, 2)
+        empty_list = []
+        self.assertEqual(Base.to_json_string(empty_list), "[]")
 
-    def test_nb_objects_private(self):
-        """Test that __nb_objects is private."""
-        with self.assertRaises(AttributeError):
-        print(Base.__nb_objects)
+        none_list = None
+        self.assertEqual(Base.to_json_string(none_list), "[]")
 
-    def test_nb_objects_increment(self):
-        """Test that __nb_objects increments correctly."""
-        b1 = Base()
-        b2 = Base()
-        self.assertEqual(b1.id, 1)
-        self.assertEqual(b2.id, 2)
-        self.assertEqual(Base._Base__nb_objects, 2)
+        empty_string = ""
+        self.assertEqual(Base.from_json_string(empty_string), [])
 
-    def test_nb_objects_no_change_with_manual_id(self):
-        """Test that providing an id does not increment __nb_objects."""
-        b1 = Base()
-        b2 = Base(10)
-        b3 = Base()
-        self.assertEqual(b1.id, 1)
-        self.assertEqual(b2.id, 10)
-        self.assertEqual(b3.id, 2)
-        self.assertEqual(Base._Base__nb_objects, 2)
+        none_string = None
+        self.assertEqual(Base.from_json_string(none_string), [])
+
+    def test_save_to_file(self):
+        """Test the save_to_file method."""
+        r1 = Rectangle(10, 7, 2, 8, 1)
+        r2 = Rectangle(2, 4, 0, 0, 2)
+        Rectangle.save_to_file([r1, r2])
+        with open("Rectangle.json", "r") as file:
+            content = file.read()
+        self.assertIn('"id": 1', content)
+        self.assertIn('"width": 10', content)
+
+        Square.save_to_file([])
+        with open("Square.json", "r") as file:
+            content = file.read()
+        self.assertEqual(content, "[]")
+
+    def test_load_from_file(self):
+        """Test the load_from_file method."""
+        r1 = Rectangle(10, 7, 2, 8, 1)
+        r2 = Rectangle(2, 4, 0, 0, 2)
+        Rectangle.save_to_file([r1, r2])
+        rectangles = Rectangle.load_from_file()
+        self.assertEqual(len(rectangles), 2)
+        self.assertTrue(isinstance(rectangles[0], Rectangle))
+        self.assertEqual(rectangles[0].width, 10)
+        self.assertEqual(rectangles[1].height, 4)
+
+        squares = Square.load_from_file()
+        self.assertEqual(squares, [])
+
+    def test_create(self):
+        """Test the create method."""
+        rect_dict = {"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}
+        r1 = Rectangle.create(**rect_dict)
+        self.assertEqual(r1.width, 10)
+        self.assertEqual(r1.height, 7)
+
+        square_dict = {"id": 1, "size": 5, "x": 0, "y": 0}
+        s1 = Square.create(**square_dict)
+        self.assertEqual(s1.size, 5)
+
+    def test_save_to_file_csv(self):
+        """Test the save_to_file_csv method."""
+        r1 = Rectangle(10, 7, 2, 8, 1)
+        r2 = Rectangle(2, 4, 0, 0, 2)
+        Rectangle.save_to_file_csv([r1, r2])
+        with open("Rectangle.csv", "r") as file:
+            content = file.readlines()
+        self.assertIn("1,10,7,2,8\n", content)
+        self.assertIn("2,2,4,0,0\n", content)
+
+    def test_load_from_file_csv(self):
+        """Test the load_from_file_csv method."""
+        r1 = Rectangle(10, 7, 2, 8, 1)
+        r2 = Rectangle(2, 4, 0, 0, 2)
+        Rectangle.save_to_file_csv([r1, r2])
+        rectangles = Rectangle.load_from_file_csv()
+        self.assertEqual(len(rectangles), 2)
+        self.assertEqual(rectangles[0].width, 10)
+        self.assertEqual(rectangles[1].height, 4)
+
+        squares = Square.load_from_file_csv()
+        self.assertEqual(squares, [])
 
 
 if __name__ == "__main__":

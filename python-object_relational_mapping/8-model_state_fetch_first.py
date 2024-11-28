@@ -9,22 +9,22 @@ from sqlalchemy.orm import sessionmaker
 from model_state import Base, State
 
 if __name__ == "__main__":
-     username = sys.argv[1]
-     password = sys.argv[2]
-     db_name = sys.argv[3]
+    username = sys.argv[1]
+    password = sys.argv[2]
+    db_name = sys.argv[3]
 
-     engine = create_engine(
-         f'mysql+mysqldb://{username}:{password}@localhost/{db_name}',
-         pool_pre_ping=True
-     )
+    engine = create_engine(
+    f'mysql+mysqldb://{username}:{password}@localhost/{db_name}',
+        pool_pre_ping=True
+    )
 
-     Session = sessionmaker(bind=engine)
-     session = Session()
-     state = session.query(State).order_by(State.id).first()
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    state = session.query(State).order_by(State.id).first()
 
-     if state:
-         print(f"{state.id}: {state.name}")
-     else:
-         print("Nothing")
+    if state:
+        print(f"{state.id}: {state.name}")
+    else:
+        print("Nothing")
 
-     session.close()
+    session.close()

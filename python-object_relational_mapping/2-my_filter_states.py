@@ -1,9 +1,8 @@
 #!/usr/bin/python3
-"""Displays all values where name matches argument"""
 
-
-import MySQLdb
+"""Displays all values that matches searchName"""
 import sys
+import MySQLdb
 
 if __name__ == "__main__":
     # Retrieve arguments passed to the script

@@ -5,7 +5,6 @@
 import MySQLdb
 import sys
 
-
 if __name__ == "__main__":
     # Retrieve arguments passed to the script
     mysql_user = sys.argv[1]

@@ -10,6 +10,7 @@ from sqlalchemy.ext.declarative import declarative_base
 # Create a base class for our model classes
 Base = declarative_base()
 
+
 class State(Base):
     """
     Represents the 'states' table in the database.

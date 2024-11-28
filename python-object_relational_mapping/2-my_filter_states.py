@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""Displays all values where name matches argument"""
+
+
 import MySQLdb
 import sys
 

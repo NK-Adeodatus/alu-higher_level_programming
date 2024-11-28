@@ -1,6 +1,9 @@
 #!/usr/bin/python3
+"""
+Displays all values that matches searchName
+"""
 
-"""Displays all values that matches searchName"""
+
 import sys
 import MySQLdb
 

@@ -21,7 +21,7 @@ if __name__ == "__main__":
     )
 
     cur = db.cursor()
-    
+
     query = "SELECT * FROM states WHERE name LIKE BINARY 'N%' "
     query += "ORDER BY id ASC"
     cur.execute(query)

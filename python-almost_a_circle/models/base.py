@@ -78,7 +78,7 @@ class Base:
                 instances = []
                 for dictionary in list_dictionaries:
                     instances.append(cls.create(**dictionary))
-                    return instances
+                return instances
 
         except IOError:
             return []

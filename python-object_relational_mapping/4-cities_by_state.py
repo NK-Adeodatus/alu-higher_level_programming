@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
     # Create a cursor object to execute SQL queries
     c = db.cursor()
-    
+
     # Execute the SQL query to fetch city and state information
     c.execute("SELECT c.id, c.name, s.name \
                 FROM cities as c \

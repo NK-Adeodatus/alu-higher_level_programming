@@ -1,6 +1,5 @@
 #!/usr/bin/node
 const arr = ['C is fun', 'Python is cool', 'JavaScript is amazing'];
-let i = 0;
-while(i < 3) {
+for(let I = 0; i < arr.length; i++) {
   console.log(arr[i]);
 }

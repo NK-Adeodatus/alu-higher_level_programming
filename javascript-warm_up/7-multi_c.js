@@ -1,4 +1,5 @@
 #!/usr/bin/node
+<<<<<<< HEAD
 const x = Math.floor(Number(process.argv[2]));
 if (isNaN(x)) {
 	console.log('Missing number of occurrences');
@@ -7,3 +8,5 @@ if (isNaN(x)) {
 		console.log('C is fun');
 	}
 }
+=======
+>>>>>>> 94782ca954496653cc910cf6b34ea9125a7b6d07
